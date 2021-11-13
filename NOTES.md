@@ -1,0 +1,46 @@
+## Building an Async API with ASP.NET Core
+- by Kevin Dockx
+
+- COURSE OVERVIEW:
+
+- UNDERSTANDING THE POWER OF ASYNC:
+  - Prerequisites & Tooling:
+    - Visual Studio 2019. (Version 16.5 or better.)
+    - Load testing: West Wind Websurge.
+    - Introduction to the demo project.
+  - Sync and Async Request Handling:
+    - When? Performance is not the key benefit. Indirect performance benefits RE: concurrent requests.
+    - The key benefit of writing async server-side code is increased scalability.
+    - SCALABILITY: The capacity of a system, network, or process to handle a growing amount of work, or its potential to be enlarged to accommodate that growth.
+    - Horizontal Scaling. Adding additional servers. (Or scaling out.)
+      - RESTful systems are a good start. Other components can hurt scalability:
+        - Non-distributed databases or caches.
+    - Vertical Scaling:
+      - Adding memory, storage, or increasing CPU. (Or scaling up.)
+      - This is what Async code assists with. 
+      - Writing an API in such a way that resource ultization is improved via vertical scalability at a server level.
+    - Handling Synchronous Requests:
+      - A thread from the thread pool. I/O call will block the thread. Unavailable for ther requests. Threads wait for calls to be complete.
+    - Handling Asynchronous Requests:
+      - A thread from the thread pool. I/O call will take time but thread returned to thread pool.   
+  - I/O versus Computational Bound Work:
+    - I/O: "Will my code be waiting for a task to be complete before continuing?"
+    - File system, database, network calls. Server-side & client-side.
+    - Computational: "Will my code be performing an expensive computation?"
+    - Expensive business algorithm. Client-side.
+    - NOTE: Don't use async on the server for  computation-bound work.
+  - Multithreading, Concurrency, & Parallelism:
+    - A thread is a basic unit of CPU utilization.
+    - Multithreading: One single CPU or single core in a multi-core CPU can execute multiple threads concurrently.
+    - Concurrency: A condition that exists when at least two threads are making progress.
+    - Parallelism means that at least two threads are executing simultaneously. (Multi-core. Or hyper-threaded.)
+  - Summary:
+    - Use async on the server to increase scalability.
+    - The thread that is handling an async request is freed up to handle other requests.
+    - It does not wait idly for I/O operations to complete.
+    - Use async on the server for I/O-bound work. e.g.: File system, netwrok, database requests.
+    - Do not use async on the server for computational work. e.g.: long-running calculations. May have adverse effects.
+    - Can be used on the client.
+  
+- STARTING AT THE BOTTOM WITH YOUR DATA ACCESS LAYER:
+  - Here.
