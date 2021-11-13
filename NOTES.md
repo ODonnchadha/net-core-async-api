@@ -76,4 +76,24 @@
       - e.g.: FileStream class used to default to this model. Replaced by TAP.
   - The purpose of Task & Task<T>.
   - DAL & Repository.
+    - Repository Pattern:
+      - Assists in avoiding: code duplication. error-prone code. tough testing.
+      - An abstraction that reduces complexity and aims to make the code, safe for the repository implementation, persistence ignorant.
   - Naming guidelines, conventions, and best practices.
+    - Contracts and Async Modifiers:
+      - An interface is a contract, which makes the GetBooksAsync() defination a contract detail.
+      - Using the async/await keywords inform us as to how the method is implemented, which makes it an implementation detail.
+  - Summary:
+    - Marking a mthod with the async modifier:
+      - Ensures that the await keyword can be used inside that method. Transforms the mothos into a state machine.
+    - Using the await operator:
+      - Tells the compiler that the async method can't continue until the awaited asynchronous process is complete.
+      - Returns control to the caller of the async method.
+    - A Task:
+      - Represents a single operation that returns nothing (Task) or a value of type T (Task<T>).
+      - Represents the execution of the async method.
+  
+- ASYNCHRONOUSLY READING RESOURCES:
+  - Adding an async controller action:
+  - Testing async code improvements:
+  - Using an AsyncResultFilter:
