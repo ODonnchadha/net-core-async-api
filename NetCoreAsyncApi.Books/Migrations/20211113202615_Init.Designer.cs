@@ -10,8 +10,8 @@ using NetCoreAsyncApi.Books.Contexts;
 namespace NetCoreAsyncApi.Books.Migrations
 {
     [DbContext(typeof(BooksContext))]
-    [Migration("20211113183124_INIT")]
-    partial class INIT
+    [Migration("20211113202615_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

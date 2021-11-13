@@ -95,5 +95,13 @@
   
 - ASYNCHRONOUSLY READING RESOURCES:
   - Adding an async controller action:
+    - [ApiController()] forces the use of attribute-based routing, which is the best practice when building ASP.NET APIs.
+    - Convention-based routing is more for MVC-based applications.
+      ```csharp
+        [ApiController()]
+        [Route("api/books")]
+        public class BooksController : ControllerBase
+        {
+      ```
   - Testing async code improvements:
   - Using an AsyncResultFilter:
