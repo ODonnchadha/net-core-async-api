@@ -1,6 +1,7 @@
 ﻿namespace NetCoreAsyncApi.Books.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using NetCoreAsyncApi.Books.Filters;
     using NetCoreAsyncApi.Books.Interfaces.Repositories;
     using System;
     using System.Threading.Tasks;
@@ -11,7 +12,7 @@
         private readonly IBookRepository repository;
         public BooksController(IBookRepository repository) => this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
-        [HttpGet(), Route("{id}")]
+        [HttpGet(), Route("{id}"), BookResultFilter()]
         public async Task<IActionResult> GetBook(Guid id)
         {
             var book = await repository.GetBookAsync(id);
@@ -20,7 +21,7 @@
             return Ok(book);
         }
 
-        [HttpGet()]
+        [HttpGet(), BooksResultFilter()]
         public async Task<IActionResult> GetBooks()
         {
             var books = await repository.GetBooksAsync();

@@ -103,5 +103,43 @@
         public class BooksController : ControllerBase
         {
       ```
-  - Testing async code improvements:
+  - Testing async code improvements: Introducing WebSurge:
+    - Scalability improvements: Load testing. Combined with thread pool throttling.
+    - WebSurge is a free tool specifically aimed at load testing.
+    - TODO: Allow for 0.02 seconds delay to represent SQL Server on a DB Server and not local.
+        ```csharp
+            context.Database.ExecuteSqlCommand();
+        ```
+    - The outer-facing model:
+        - Entity model: Entity classes represent (partial) database rows as objects.
+        - Outer-facing Model: DTO classes represent resources that are sent over the wire.
+        How do we represent the resource data type?
+            - Model classes, DTOs, statically-typed approach.
+            - Dynamics, anonymous objects, ExpandoObjects.
+            - We can avoid mapping code in controller actions by leveraging a reuseable IAsyncResultFilter.
   - Using an AsyncResultFilter:
+    - Manipulating output with an AsyncResultFilter:
+    - Filters in ASP.NET Cover MVC allow us to run code before or after specific stages in the request processing pipeline.
+    - Each delegate performs a next(); within the pipeline.
+    - MVC is also a piece of middleware within the pipeline.
+    - Filters run within the MVC action invocation pipeline (aka filter pipeline.)
+        1. Authorization filters.
+        2. Resource filters.
+        3. Model binding.
+        4. Action filters.
+        5. !Action executes.
+        6. Exception filters.
+        7. Result filters.
+        8. !Result executes.
+    - By using result filters we can keep our actions cleaner and promote reuse.
+    - IResultFilter, IAsyncResultFilter interfaces.
+        - ResultFilterAttribute (abstract.)
+    - Summary:
+        - Async code has a tendency to bubble up application layers due to compiler errors and warnings.
+        - Can't await if the calling method isn't marked with the async modifier.
+        - Keep models seperate. Mixing models & responsibilities between layers leads to evolvability issues.
+        - Result filters run right before and after the result is executed.
+            - Makes them a good location for mapping code. Makes the mapping code reuseable.
+
+- ASYNCHRONOUSLY MANIPULATING RESOURCES:
+    - TODO:

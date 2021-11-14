@@ -10,6 +10,7 @@ namespace NetCoreAsyncApi.Books
     using NetCoreAsyncApi.Books.Contexts;
     using NetCoreAsyncApi.Books.Interfaces.Repositories;
     using NetCoreAsyncApi.Books.Repositories;
+    using System;
 
     public class Startup
     {
@@ -21,17 +22,17 @@ namespace NetCoreAsyncApi.Books
         {
             var connectionString = Configuration["ConnectionStrings:BooksDBConnectionString"];
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddControllers();
             services.AddDbContext<BooksContext>(c =>
             {
                 c.UseSqlServer(connectionString);
             });
+            services.AddScoped<IBookRepository, BookRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "NetCoreAsyncApi.Books", Version = "v1" });
             });
-
-            services.AddScoped<IBookRepository, BookRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

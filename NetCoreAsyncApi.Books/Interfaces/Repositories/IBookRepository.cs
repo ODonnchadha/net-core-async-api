@@ -6,6 +6,8 @@
 
     public interface IBookRepository
     {
+        Entities.Book GetBook(Guid id);
+        IEnumerable<Entities.Book> GetBooks();
         Task<Entities.Book> GetBookAsync(Guid id);
         Task<IEnumerable<Entities.Book>> GetBooksAsync();
     }

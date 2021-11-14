@@ -6,13 +6,16 @@
     using NetCoreAsyncApi.Books.Interfaces.Repositories;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class BookRepository : IBookRepository, IDisposable
     {
         private BooksContext context;
         public BookRepository(BooksContext context) => this.context = context ?? throw new ArgumentNullException(nameof(context));
+        public Book GetBook(Guid id) => context.Books.Include(b => b.Author).FirstOrDefault(b => b.Id == id);
         public async Task<Book> GetBookAsync(Guid id) => await context.Books.Include(b => b.Author).FirstOrDefaultAsync(b => b.Id == id);
+        public IEnumerable<Book> GetBooks() => context.Books.Include(b => b.Author).ToList();
         public async Task<IEnumerable<Book>> GetBooksAsync() => await context.Books.Include(b => b.Author).ToListAsync();
 
         #region IDisposable
