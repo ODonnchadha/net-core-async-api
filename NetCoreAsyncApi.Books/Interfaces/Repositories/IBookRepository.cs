@@ -6,9 +6,11 @@
 
     public interface IBookRepository
     {
+        void AddBook(Entities.Book book);
         Entities.Book GetBook(Guid id);
         IEnumerable<Entities.Book> GetBooks();
         Task<Entities.Book> GetBookAsync(Guid id);
         Task<IEnumerable<Entities.Book>> GetBooksAsync();
+        Task<bool> SaveChangesAsync();
     }
 }

@@ -142,4 +142,6 @@
             - Makes them a good location for mapping code. Makes the mapping code reuseable.
 
 - ASYNCHRONOUSLY MANIPULATING RESOURCES:
-    - TODO:
+    - When to go async? AddAsync() within a context is used to allow special value generators.
+    - For all other cases, the non async method should be used. Why?
+    - Bulk Inserts:
