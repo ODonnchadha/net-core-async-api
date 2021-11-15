@@ -11,6 +11,7 @@
         IEnumerable<Entities.Book> GetBooks();
         Task<Entities.Book> GetBookAsync(Guid id);
         Task<IEnumerable<Entities.Book>> GetBooksAsync();
+        Task<IEnumerable<Entities.Book>> GetBooksAsync(IEnumerable<Guid> ids);
         Task<bool> SaveChangesAsync();
     }
 }

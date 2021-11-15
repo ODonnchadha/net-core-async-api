@@ -144,4 +144,16 @@
 - ASYNCHRONOUSLY MANIPULATING RESOURCES:
     - When to go async? AddAsync() within a context is used to allow special value generators.
     - For all other cases, the non async method should be used. Why?
-    - Bulk Inserts:
+    - Bulk Inserts: Ten books per:
+        - Overhead. Performance loss. Overuse of threads (Scalability suffers.)
+    - Supporting bulk inserts: POST api/bookcollections
+    - Alternate approach:
+        - /bulk endpoint supporting a collection of resources.
+        - A set of resources and operations on the resources.
+    - Summary:
+        - Use Async for I/O bound work.
+        - Adding an entity to the context isn't I/O bound work.
+        - Bulk inserts can help with scalability.
+
+- UNDERSTANDING HOW TO INTEGRATE WITH EXTERNAL SERVICES USING ASYND:
+    - TODO:

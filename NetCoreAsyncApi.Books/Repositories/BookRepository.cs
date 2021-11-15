@@ -26,6 +26,10 @@
         public async Task<Book> GetBookAsync(Guid id) => await context.Books.Include(b => b.Author).FirstOrDefaultAsync(b => b.Id == id);
         public IEnumerable<Book> GetBooks() => context.Books.Include(b => b.Author).ToList();
         public async Task<IEnumerable<Book>> GetBooksAsync() => await context.Books.Include(b => b.Author).ToListAsync();
+        public async Task<IEnumerable<Entities.Book>> GetBooksAsync(IEnumerable<Guid> ids)
+        {
+            return await context.Books.Where(b => ids.Contains(b.Id)).Include(b => b.Author).ToListAsync();
+        }
         public async Task<bool> SaveChangesAsync() =>  await context.SaveChangesAsync() > 0;
         #region IDisposable
         public void Dispose()
