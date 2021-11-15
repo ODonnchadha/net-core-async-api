@@ -156,4 +156,7 @@
         - Bulk inserts can help with scalability.
 
 - UNDERSTANDING HOW TO INTEGRATE WITH EXTERNAL SERVICES USING ASYND:
-    - TODO:
+    - Asynchronously calling an external service.
+    - Waiting for multiple tasks to complete.
+    - Cancelling tasks.
+    - Gracefully handle exceptions.

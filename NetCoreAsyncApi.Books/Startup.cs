@@ -9,7 +9,9 @@ namespace NetCoreAsyncApi.Books
     using Microsoft.OpenApi.Models;
     using NetCoreAsyncApi.Books.Contexts;
     using NetCoreAsyncApi.Books.Interfaces.Repositories;
+    using NetCoreAsyncApi.Books.Interfaces.Services;
     using NetCoreAsyncApi.Books.Repositories;
+    using NetCoreAsyncApi.Books.Services;
     using System;
 
     public class Startup
@@ -28,7 +30,9 @@ namespace NetCoreAsyncApi.Books
             {
                 c.UseSqlServer(connectionString);
             });
+            services.AddHttpClient();
             services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IBookCoverService, BookCoverService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "NetCoreAsyncApi.Books", Version = "v1" });

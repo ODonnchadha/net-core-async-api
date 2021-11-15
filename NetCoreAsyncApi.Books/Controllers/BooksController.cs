@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
     using NetCoreAsyncApi.Books.Filters;
     using NetCoreAsyncApi.Books.Interfaces.Repositories;
+    using NetCoreAsyncApi.Books.Interfaces.Services;
     using NetCoreAsyncApi.Books.Models;
     using System;
     using System.Threading.Tasks;
@@ -11,10 +12,12 @@
     [ApiController, Route("api/books")]
     public class BooksController : ControllerBase
     {
+        private readonly IBookCoverService service;
         private readonly IBookRepository repository;
         private readonly IMapper mapper;
-        public BooksController(IBookRepository repository, IMapper mapper)
+        public BooksController(IBookCoverService service, IBookRepository repository, IMapper mapper)
         {
+            this.service = service ?? throw new ArgumentNullException(nameof(service));
             this.repository = repository ?? throw new ArgumentNullException(nameof(repository));
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
@@ -26,6 +29,8 @@
         {
             var book = await repository.GetBookAsync(id);
             if (book == null) return NotFound();
+
+            var bookCover = await service.GetBookCoverAsync("X");
 
             return Ok(book);
         }
