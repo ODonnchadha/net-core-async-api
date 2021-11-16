@@ -30,7 +30,8 @@
             var book = await repository.GetBookAsync(id);
             if (book == null) return NotFound();
 
-            var bookCover = await service.GetBookCoverAsync("X");
+            // var bookCover = await service.GetBookCoverAsync("X");
+            var bookCover = await service.GetBookCoversAsync(id);
 
             return Ok(book);
         }
