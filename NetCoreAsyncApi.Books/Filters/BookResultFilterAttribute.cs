@@ -16,9 +16,9 @@
         public BookResultFilterAttribute() { }
         public override async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
         {
-            var resultFomAction = context.Result as ObjectResult;
+            var resultFromAction = context.Result as ObjectResult;
 
-            if (resultFomAction?.Value == null || resultFomAction.StatusCode < 200 || resultFomAction.StatusCode >= 300)
+            if (resultFromAction?.Value == null || resultFromAction.StatusCode < 200 || resultFromAction.StatusCode >= 300)
             {
                 await next();
                 return;
@@ -35,7 +35,7 @@
             //{
             //    resultFomAction.Value = mapper.Map<Models.Book>(resultFomAction.Value);
             //}
-            resultFomAction.Value = mapper.Map<Models.Book>(resultFomAction.Value);
+            resultFromAction.Value = mapper.Map<Models.Book>(resultFromAction.Value);
 
             await next();
         }

@@ -7,6 +7,7 @@
     using NetCoreAsyncApi.Books.Interfaces.Services;
     using NetCoreAsyncApi.Books.Models;
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     [ApiController, Route("api/books")]
@@ -31,9 +32,16 @@
             if (book == null) return NotFound();
 
             // var bookCover = await service.GetBookCoverAsync("X");
-            var bookCover = await service.GetBookCoversAsync(id);
+            var bookCovers = await service.GetBookCoversAsync(id);
 
-            return Ok(book);
+            //var propertyBag = new Tuple<
+            //    Entities.Book, IEnumerable<ExternalModels.BookCover>>(book, bookCovers);
+            //var item1 = propertyBag.Item1;
+            (Entities.Book book, IEnumerable<ExternalModels.BookCover> bookCovers) 
+                propertyBag = (book, bookCovers);
+
+            return Ok((book, bookCovers));
+            // return Ok(book);
         }
 
         [HttpGet()]
@@ -56,6 +64,7 @@
 
             // Feth the book from the repository to include the author.
             await repository.GetBookAsync(bookEntity.Id);
+
 
             return CreatedAtRoute("GetBook", new { id = bookEntity.Id }, bookEntity);
         }
