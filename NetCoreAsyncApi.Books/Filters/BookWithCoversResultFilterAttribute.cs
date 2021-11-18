@@ -19,8 +19,10 @@
                 return;
             }
 
+            // 1. Deconstructing.
             //var (book, bookCovers) = ((Entities.Book book, 
             //    IEnumerable<ExternalModels.BookCover> bookCovers))resultFromAction.Value;
+            // 2. Property names are syntatic sugar.
             //var temp = ((Entities.Book, IEnumerable<ExternalModels.BookCover>))resultFromAction.Value;
             var (book, bookCovers) = ((Entities.Book, 
                 IEnumerable<ExternalModels.BookCover>))resultFromAction.Value;

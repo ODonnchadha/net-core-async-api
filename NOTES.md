@@ -155,8 +155,43 @@
         - Adding an entity to the context isn't I/O bound work.
         - Bulk inserts can help with scalability.
 
-- UNDERSTANDING HOW TO INTEGRATE WITH EXTERNAL SERVICES USING ASYND:
+- UNDERSTANDING HOW TO INTEGRATE WITH EXTERNAL SERVICES USING ASYNC:
     - Asynchronously calling an external service.
     - Waiting for multiple tasks to complete.
     - Cancelling tasks.
     - Gracefully handle exceptions.
+    - Why cancellation matters:
+        - Frees up threads (I/O-bound work.) Improves scalability.
+        - Frees up CPU resources (computational bound work.)
+    - Summary:
+        - Execute multiple tasks in order by awaiting them. Tasks are returned in order.
+        - Use Task.WhenAll() or Task.WghenAny() when executing multiple tasks in parallel.
+        - Task results are returned when the task in completed.
+        - Cancel tasks to free up threads.
+        - CancellationTokenSource & CancellationToken
+        - Handle a cancellation exception by catchingit as an OperationCancelledException, which exposes the CancellationToken.
+
+- AVOIDING COMMON PITFALLS:
+    - Wrapping legacy code. Offloading legacy code to a background thread.
+        - Long-running algorithms is computational-bound code.
+        - These can be offloaded to a background thread using async/await. Can run concurrently.
+    - Blocking async code.
+    - Modifying shared state.
+    - PITFALL #1: Using Task.Run() on the server:
+        - Threads are switched. The initial wrapper await is returned to the thread pool.
+        - Task.Run() on the server decreases scalability.
+        - It's intended for use on the client (e.g.: to keep the UI responsive.)
+    - PITFALL #2: Blocking Async Code:
+        - Task.Wait() and Task.Result() block the calling thread.
+            - Thread is not returned to the thread pool. Blocking code hurts scalability.
+        - NOTE: ASP.NET Core does not have a synchronization context (The older ASP.NET does.)
+            - The improves performance. We do not need to synchronize between contexts anymore.
+            - Makes it easier to write async code.
+    - PITFALL #3: Modifying Shared State:
+        - Different threads might manipulate the same state at the same time.
+            - Correctness cannot be guarenteed.
+    - Summary:
+        - Three common pitfalls.
+            1. Don't use Task.Run() on the server. This hurts scalability.
+            2. Don't block async code. This hurts scalability.
+            3. Don't modify shared state. State cannot be guarenteed.
